@@ -1,0 +1,12 @@
+name:   brew-growl
+desc:   Get Growl notifications for Homebrew
+home:   https://github.com/secondplanet/homebrew-growl
+install:    # Prepend each line with 'brew' before executing
+    - tap secondplanet/growl
+    - install brew-growl
+uninstall:  # Same as above
+    - uninstall brew-growl
+    - untap secondplanet/growl
+test:       # Each must: [$?==0] after 'install' & [$?!=0] after 'uninstall'
+    - command growl
+    - growl on
