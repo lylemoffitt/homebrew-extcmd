@@ -3,13 +3,22 @@
 require "pathname"
 require "extend/string"
 
+require "descriptions"
 
 module External_Command
 
   class ExtCmd
 
-    def initialize( cmd )
-      @pkg = Package_Cache.fetch(cmd)
+    private
+      def initialize( package_yaml )
+        @pkg = package_yaml
+      end
+
+    public
+    def self.factory( cmd )
+      if data = Package_Cache.fetch(cmd)
+        ExtCmd.new data
+      end
     end
 
     def name
@@ -86,32 +95,60 @@ module External_Command
 
   class << self
 
-    def search( *args )
+
+    def search( args )
+      res = args.uniq!.map{ |a|
+        Package_Cache.search_name( /#{a}/ )
+      }
+      Descriptions.new(res).print
+    end
+
+    def search_desc( args )
+      args.uniq!.map! { |a| Package_Cache.search_desc( /#{a}/ ) }
+    end
+
+    def install( args )
+      args.uniq.map{ |name|
+        ExtCmd.factory(name).install.each { |cmd|
+          system "brew", cmd
+        }
+      }
+    end
+
+    def uninstall( args )
+      args.uniq.map{ |name|
+        ExtCmd.factory(name).uninstall.each { |cmd|
+          system "brew", cmd
+        }
+      }
+    end
+
+    def desc( args )
+      args.uniq.map{ |name|
+        puts name, ":", ExtCmd.factory(name).desc
+      }
+    end
+
+    def home( args )
+      args.uniq.map{ |name|
+        system "open", ExtCmd.factory(name).home
+      }
+    end
+
+    def help( args )
 
     end
 
-    def search_desc( *args )
 
-    end
-
-    def install( *args )
-
-    end
-
-    def uninstall( *args )
-
-    end
-
-    def desc( *args )
-
-    end
-
-    def home( *args )
-
-    end
-
-    def help( *args )
-
+    def Usage
+      <<-EOS.undent
+        Usage:
+          brew alias foo=bar     # set 'brew foo' as an alias for 'brew bar'
+          brew alias foo --edit  # open up alias 'foo'in EDITOR
+          brew alias foo         # print the alias 'foo'
+          brew alias             # print all aliases
+          brew unalias foo       # remove the 'foo' alias
+      EOS
     end
 
     def cli
