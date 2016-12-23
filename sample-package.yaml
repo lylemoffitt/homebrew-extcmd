@@ -1,12 +1,34 @@
+---
+
+# The full name of the external command
 name:   brew-growl
+
+# Short escription of the command
 desc:   Get Growl notifications for Homebrew
+
+# The github homepage of the command
 home:   https://github.com/secondplanet/homebrew-growl
-install:    # Prepend each line with 'brew' before executing
+
+# Instructions to add this external command to homebrew
+#   Each line must be a 'brew' command
+install:
     - tap secondplanet/growl
     - install brew-growl
-uninstall:  # Same as above
+
+# Instructions to remove this external command from homebrew
+#   Each line must be a 'brew' command
+uninstall:
     - uninstall brew-growl
     - untap secondplanet/growl
-test:       # Each must: [$?==0] after 'install' & [$?!=0] after 'uninstall'
+
+# Instructions for how to test that the command was
+# successfully installed or removed
+#   Each line must:
+#       - Be a 'brew' command
+#       - Return a value == 0 after 'install' steps are completed
+#       - Return a value != 0 after 'uninstall' steps are completed
+test:
     - command growl
     - growl on
+
+---
