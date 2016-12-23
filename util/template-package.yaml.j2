@@ -1,0 +1,27 @@
+{% set tname -%}
+    {%- if tapname %}{{tapname}}{% else %}{{name}}{% endif %}
+{%- endset -%}
+---
+name:   brew-{{name}}
+
+desc:   {{desc}}
+
+home:   https://github.com/{{author}}/homebrew-{{tname}}
+
+install:
+    - tap {{author}}/{{tname}}
+    {%- if install %}
+    - install brew-{{name}}
+    {%- endif %}
+
+uninstall:
+    {%- if install %}
+    - uninstall brew-{{name}}
+    {%- endif %}
+    - untap {{author}}/{{tname}}
+
+test:
+    - command {{name}}
+    - {{name}} {{help}}
+
+---
