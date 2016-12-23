@@ -48,7 +48,8 @@ by homebrew. Just submit a manifest.
 For example the manifest for an external-command like `brew-growl` from the [list](https://github.com/Homebrew/brew/blob/master/docs/External-Commands.md)
 would is represented with a simple YAML file like this:
 
-```
+```YAML
+---
 name:   brew-growl
 desc:   Get Growl notifications for Homebrew
 home:   https://github.com/secondplanet/homebrew-growl
@@ -61,6 +62,7 @@ uninstall:  # Same as above
 test:       # Each must: [$?==0] after 'install' & [$?!=0] after 'uninstall'
     - command growl
     - growl on
+---
 ```
 
 
