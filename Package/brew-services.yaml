@@ -1,0 +1,18 @@
+---
+name:   brew-services
+
+desc:   Starts Homebrew formulae's plists with launchctl
+
+home:   https://github.com/homebrew/homebrew-services
+
+install:
+    - tap homebrew/services
+
+uninstall:
+    - untap homebrew/services
+
+test:
+    - command services
+    - services --help
+
+---

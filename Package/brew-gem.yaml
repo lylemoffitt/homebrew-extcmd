@@ -1,0 +1,20 @@
+---
+name:   brew-gem
+
+desc:   Install gems as homebrew formulas
+
+home:   https://github.com/sportngin/homebrew-gem
+
+install:
+    - tap sportngin/gem
+    - install brew-gem
+
+uninstall:
+    - uninstall brew-gem
+    - untap sportngin/gem
+
+test:
+    - command gem
+    - gem help
+
+---

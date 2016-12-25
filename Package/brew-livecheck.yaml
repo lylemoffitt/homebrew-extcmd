@@ -1,0 +1,18 @@
+---
+name:   brew-livecheck
+
+desc:   Checks for newer version of formulae in the upstream
+
+home:   https://github.com/youtux/homebrew-livecheck
+
+install:
+    - tap youtux/livecheck
+
+uninstall:
+    - untap youtux/livecheck
+
+test:
+    - command livecheck
+    - livecheck --help
+
+---
